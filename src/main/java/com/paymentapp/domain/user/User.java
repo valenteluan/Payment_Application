@@ -3,6 +3,7 @@ package com.paymentapp.domain.user;
 import com.paymentapp.dtos.UserDTO;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity(name = "users")
@@ -14,22 +15,24 @@ public class User {
     private Long id;
     private String name;
     @Column(unique = true)
-    private Integer cpf;
+    private String cpf;
     @Column(unique = true)
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private UserType userType;
+    private BigDecimal amount;
 
     public User() {
     }
 
-    public User(String name, Integer cpf, String email, String password, UserType userType) {
+    public User(String name, String cpf, String email, String password, UserType userType, BigDecimal amount) {
         this.name = name;
         this.cpf = cpf;
         this.email = email;
         this.password = password;
         this.userType = userType;
+        this.amount = amount;
     }
 
     public User(UserDTO userDTO) {
@@ -38,6 +41,7 @@ public class User {
         this.email = userDTO.email();
         this.password = userDTO.password();
         this.userType = userDTO.userType();
+        this.amount = userDTO.amount();
     }
 
     public Long getId() {
@@ -56,11 +60,11 @@ public class User {
         this.name = name;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -86,6 +90,14 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     @Override
