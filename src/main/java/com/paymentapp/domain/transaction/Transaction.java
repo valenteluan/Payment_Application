@@ -1,6 +1,7 @@
 package com.paymentapp.domain.transaction;
 
 import com.paymentapp.domain.user.User;
+import com.paymentapp.dtos.TransactionDTO;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
