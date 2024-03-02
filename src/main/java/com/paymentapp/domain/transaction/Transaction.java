@@ -1,7 +1,6 @@
 package com.paymentapp.domain.transaction;
 
 import com.paymentapp.domain.user.User;
-import com.paymentapp.dtos.TransactionDTO;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -16,7 +15,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private BigDecimal value;
+    private BigDecimal amount;
 
     @ManyToOne
     @JoinColumn(name = "payer_id")
@@ -31,8 +30,8 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(BigDecimal value, User payer, User payee, LocalDateTime timestemp) {
-        this.value = value;
+    public Transaction(BigDecimal amount, User payer, User payee, LocalDateTime timestemp) {
+        this.amount = amount;
         this.payer = payer;
         this.payee = payee;
         this.timestemp = timestemp;
@@ -46,12 +45,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setAmount(BigDecimal value) {
+        this.amount = amount;
     }
 
     public User getPayer() {
