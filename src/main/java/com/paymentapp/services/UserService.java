@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -41,6 +42,10 @@ public class UserService {
 
         if (payer.getAmount().compareTo(value) < 0) {
             throw new Exception("Saldo insuficiente para realizar essa transferência!");
+        }
+
+        if (Objects.equals(payer.getId(), payer.getId())) {
+            throw new Exception("Remetente e Destinatário não podem ser iguais!");
         }
 
     }
