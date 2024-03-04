@@ -35,7 +35,7 @@ public class UserService {
         return userRepository.findUserById(id).orElseThrow(() -> new Exception("Usuário não encontrado!"));
     }
 
-    public void validTransfer(User payer, BigDecimal value) throws Exception {
+    public void validTransfer(User payer, User payee, BigDecimal value) throws Exception {
         if (payer.getUserType() == UserType.SELLER) {
             throw new Exception("Usuário lojista não está autorizado a realizar transações!");
         }
@@ -44,7 +44,7 @@ public class UserService {
             throw new Exception("Saldo insuficiente para realizar essa transferência!");
         }
 
-        if (Objects.equals(payer.getId(), payer.getId())) {
+        if (Objects.equals(payer.getId(), payee.getId())) {
             throw new Exception("Remetente e Destinatário não podem ser iguais!");
         }
 

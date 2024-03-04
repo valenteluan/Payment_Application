@@ -30,18 +30,14 @@ public class TransactionService {
         User payer = userService.findUserById(transactionDTO.payer_id());
         User payee = userService.findUserById(transactionDTO.payee_id());
 
-        userService.validTransfer(payer, transactionDTO.amount());
+        userService.validTransfer(payer, payee, transactionDTO.amount());
 
         boolean isAuthorized = this.authorizeTransaction(payer, transactionDTO.amount());
         if (!isAuthorized) {
             throw new Exception("Transação não Autorizada!");
         }
 
-        Transaction newtransaction = new Transaction();
-        newtransaction.setAmount(transactionDTO.amount());
-        newtransaction.setPayer(payer);
-        newtransaction.setPayee(payee);
-        newtransaction.setTimestemp(LocalDateTime.now());
+        Transaction newtransaction = new Transaction(transactionDTO.amount(), payer, payee, LocalDateTime.now());
 
         payer.setAmount(payer.getAmount().subtract(transactionDTO.amount()));
         payee.setAmount(payee.getAmount().add(transactionDTO.amount()));
@@ -62,8 +58,6 @@ public class TransactionService {
         } else {
             return false;
         }
-
     }
-
-
+    
 }
